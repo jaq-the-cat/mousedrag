@@ -8,6 +8,12 @@
 SDL_Window *win;
 SDL_Renderer *rend;
 
+int x = 0, y = 0;
+
+struct {
+    int lmb, rmb;
+} mouse;
+
 // initialization
 void init() {
     // Window and renderer
@@ -31,6 +37,18 @@ void render() {
 int handleev() {
     SDL_Event event;
     SDL_PollEvent(&event);
+    switch (event.type) {
+        case SDL_MOUSEBUTTONDOWN:
+            x = event.motion.x;
+            y = event.motion.y;
+            break;
+        case SDL_MOUSEBUTTONUP:
+            x = -1;
+            y = -1;
+            break;
+        default:
+            return 0;
+    }
     return event.key.keysym.scancode == SDL_SCANCODE_Q;
 }
 
