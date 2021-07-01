@@ -4,7 +4,10 @@
 #define WIDTH 800
 #define HEIGHT 800
 #define BG 200
-#define SIDE 100
+
+#define GRIDSIZE 8
+#define SIDE WIDTH/GRIDSIZE
+#define SNAP(c, max) ((int) c == 0) ? 0 : ((int) ((double) GRIDSIZE*(double) c) / max) * SIDE
 
 SDL_Window *win;
 SDL_Renderer *rend;
@@ -67,15 +70,12 @@ int handleev() {
 }
 
 void update() {
-    if (mouse.lmb && SDL_PointInRect(&mpos, &obj)) {
-        dragging = 1;
-    } else {
-        dragging = 0;
-    }
+    if (SDL_PointInRect(&mpos, &obj))
+        dragging = mouse.lmb;
 
     if (dragging) {
-        obj.x = mpos.x-SIDE/2;
-        obj.y = mpos.y-SIDE/2;
+        obj.x = SNAP(mpos.x-SIDE/2, WIDTH);
+        obj.y = SNAP(mpos.y-SIDE/2, HEIGHT);
     }
 }
 
