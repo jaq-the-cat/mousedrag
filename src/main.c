@@ -7,7 +7,7 @@
 
 #define GRIDSIZE 8
 #define SIDE WIDTH/GRIDSIZE
-#define SNAP(c, max) ((int) c == 0) ? 0 : (GRIDSIZE*c) / max * SIDE
+#define SNAP(c, max) (c == 0) ? 0 : (GRIDSIZE*c) / max * SIDE
 
 SDL_Window *win;
 SDL_Renderer *rend;
